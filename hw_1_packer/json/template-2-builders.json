@@ -1,0 +1,51 @@
+{
+  "variables": {
+    "token": "{{env `YC_TOKEN`}}",
+    "folder_id": "{{env `YC_FOLDER`}}",
+    "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+    "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
+    "aws_session_token": "{{env `AWS_SESSION_TOKEN`}}",
+    "aws_region": "us-east-1"
+  },
+  "builders": [
+    {
+      "type": "yandex",
+      "token": "{{user `token`}}",
+      "folder_id": "{{user `folder_id`}}",
+      "image_name": "ubuntu-2004-lts-nginx-{{isotime | clean_resource_name}}",
+      "image_family": "ubuntu-web-server",
+      "image_description": "my custom ubuntu with nginx",
+      "source_image_family": "ubuntu-2004-lts",
+      "use_ipv4_nat": true,
+      "disk_type": "network-ssd",
+      "ssh_username": "ubuntu"
+    },
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "token": "{{user `aws_session_token`}}",
+      "ami_name": "packer-linux-aws-demo-{{timestamp}}",
+      "instance_type": "t2.micro",
+      "region": "{{user `aws_region`}}",
+      "source_ami_filter": {
+        "filters": {
+          "virtualization-type": "hvm",
+          "name": "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*",
+          "root-device-type": "ebs"
+        },
+        "owners": ["099720109477"],
+        "most_recent": true
+      },
+      "ssh_username": "ubuntu"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "echo 'Running the provisioning'"
+      ]
+    }
+  ]
+}
