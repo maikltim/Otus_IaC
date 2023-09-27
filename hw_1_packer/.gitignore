@@ -1,1 +1,5 @@
+*~
+*.swp
+.envrc
+.idea/
 key.json
