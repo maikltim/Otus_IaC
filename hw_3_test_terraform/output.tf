@@ -5,7 +5,7 @@ output "load_balancer_public_ip" {
 
 output "database_host_fqdn" {
   description = "DB hostname"
-  value = local.dbhosts
+  value = tolist(local.dbhosts)
 }
 
 
