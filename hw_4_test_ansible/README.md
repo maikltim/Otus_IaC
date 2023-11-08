@@ -674,3 +674,246 @@ ansible-playbook playbooks/install.yml
 > Ссылка на wordpress сайт ( ip балансировщика ): http://158.160.65.128
 
 
+# Задание со звездочкой использование динамического инвентаря
+
+
+> В папке ./ansible/roles/wordpress создадим папку vars и файл main.yml ( копия содержимого из переменных ./ansible/environments/prod/group_vars/wp_app)
+
+```
+wordpress_db_name: db
+wordpress_db_user: user
+wordpress_db_password: password
+wordpress_db_host: c-c9qnl5eeidv2hdhf7uaf.rw.mdb.yandexcloud.net
+```
+
+> В папке ansible создадим файл ansible-dyn.cfg с динамическим инвентарем
+
+
+```
+[defaults]
+log_path = ./logs/ansible.log
+# Откуда брать инвентори по-умолчанию
+inventory = ../tfs/tfs2inv.py
+# Под каким пользователем подключаться к хостам
+remote_user = ubuntu
+# Где брать приватный ключ для подключения к хостам
+private_key_file = ~/.ssh/id_rsa.pub
+# Выключение проверки SSH Host-keys
+host_key_checking = False
+# Выключение использования *.retry-файлов
+retry_files_enabled = False
+# Местонахождение ролей
+roles_path = ./roles
+```
+
+> Создадим папку tfs в папке ansible и файл tfs2inv.py для динамичесего инвентаря из state terraform. Выдадим права на запуск скрипта.
+
+```
+#!/usr/bin/env python3
+########################################################################################################################
+#
+# (C) 2023 Copyright Aleksei E. Zhuravlev
+#
+# This code is licensed under the Apache License, Version 2.0. You may
+# obtain a copy of this license in the LICENSE-2.0.txt file in the root directory
+# of this source tree or at https://www.apache.org/licenses/LICENSE-2.0
+#
+# Any modifications or derivative works of this code must retain this
+# copyright notice, and modified files need to carry a notice indicating
+# that they have been altered from the originals.
+#
+########################################################################################################################
+#
+# The purpose of this program:
+# Generate dynamic inventory from YC-provider structure of tfstate-file.
+# It is assumed that for study purposes only.
+#
+########################################################################################################################
+
+import json
+import argparse
+
+
+class Host:
+    def __init__(self, name, nat_ip=None, ssh_user=None, key=None):
+        self.name = name
+        self.nat_ip = nat_ip
+        self.ssh_user = ssh_user
+        self.key = key
+
+
+def print_json(hosts):
+    inventory = {
+        'all': {
+            'hosts': [],
+        },
+        '_meta': {
+            'hostvars': {},
+        },
+    }
+
+    for h in hosts:
+        inventory['all']['hosts'].append(h.name)
+        inventory['_meta']['hostvars'][h.name] = {}
+        if h.nat_ip is not None:
+            inventory['_meta']['hostvars'][h.name]["ansible_host"] = h.nat_ip
+        if h.ssh_user is not None:
+            inventory['_meta']['hostvars'][h.name]["ansible_user"] = h.ssh_user
+        if h.key is not None:
+            inventory['_meta']['hostvars'][h.name]["ansible_ssh_private_key_file"] = h.key
+
+    if len(hosts) == 0:
+        inventory = {}
+
+    print(json.dumps(inventory))
+
+
+# write hosts to file
+def write2file(file, hosts):
+
+    host_file = open(file, "w")
+
+    for h in hosts:
+        host = [h.name]
+        if h.nat_ip is not None:
+            host.append("ansible_host=" + h.nat_ip)
+        if h.ssh_user is not None:
+            host.append("ansible_user=" + h.ssh_user)
+        if h.key is not None:
+            host.append("ansible_ssh_private_key_file=" + h.key)
+        host_file.write(" ".join(host) + "\n")
+
+    host_file.close()
+
+
+def parse_tfstate(args, hosts):
+
+    state_file = open('terraform.tfstate')
+    tfstate = json.load(state_file)
+    state_file.close()
+
+    for resource in tfstate['resources']:
+        if resource['type'] == "yandex_compute_instance":
+            for instance in resource['instances']:
+                attribute = instance['attributes']
+                if (args.host and args.host == attribute['name']) or args.list or args.file:
+                    host = Host(attribute['name'])
+                    if (network_interface := attribute.setdefault('network_interface')) is not None:
+                        host.nat_ip = network_interface[0].setdefault('nat_ip_address')
+                    if (metadata := attribute.setdefault('metadata')) is not None:
+                        if (ssh_keys := metadata.setdefault('ssh-keys')) is not None:
+                            if ssh_keys.find(':') > 0:
+                                host.ssh_user = ssh_keys.split(':')[0]
+                    hosts.append(host)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--list', action='store_true', help='Вывести весь список хостов')
+    parser.add_argument('--host', help='Указать конкретный хост')
+    parser.add_argument('--file', help='Указать файл')
+    args = parser.parse_args()
+
+    #ansible hosts
+    hosts = []
+    parse_tfstate(args, hosts)
+
+    if args.file:
+        write2file(args.file, hosts)
+    else:
+        print_json(hosts)
+
+
+if __name__ == '__main__':
+    main()
+```
+
+> Создадим bash скрипт create-infra.sh для автоматического, формирования переменных и запуска ansible playbook.
+
+
+```
+#!/bin/bash
+#зададим ansible.cfg
+export ANSIBLE_CONFIG=./ansible/ansible-dyn.cfg
+#получим Id mysql кластера, флаг -r означает, что значение без кавычек
+MYSQLID=$(terraform output -json | jq -r '.mysql_cluster_id.value')
+# выгрузим значение переменной в main.yml для роли wordpress
+sed -i "s/-.*.rw.mdb.yandexcloud.net/-$MYSQLID.rw.mdb.yandexcloud.net/" ./ansible/roles/wordpress/vars/main.yml
+#запустим ansible playbook для создания инфраструктуры
+ansible-playbook ./ansible/playbooks/install.yml
+```
+> Дадим права на исполнение:
+
+```
+chmod +x create-infra.sh
+chmod +x tfs2inv.py
+```
+> Запустим create-infra.sh
+
+```
+./tfs/create-infra.sh
+```
+
+```
+hw_4_test_ansible$ ./tfs/create-infra.sh
+
+PLAY [all] *************************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] *************************************************************************************************************************************************************************
+ok: [wp-app-2]
+ok: [wp-app-1]
+
+TASK [wordpress : Update apt-get repo and cache] ***********************************************************************************************************************************************
+ok: [wp-app-1]
+ok: [wp-app-2]
+
+TASK [wordpress : install dependencies] ********************************************************************************************************************************************************
+changed: [wp-app-2]
+changed: [wp-app-1]
+
+TASK [wordpress : Create the installation directory] *******************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Install WordPress] ***********************************************************************************************************************************************************
+changed: [wp-app-2]
+changed: [wp-app-1]
+
+TASK [wordpress : Copy file with owner and permissions] ****************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Enable URL rewriting] ********************************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Enable the site] *************************************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Disable the default “It Works” site] *****************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Reload service apache2] ******************************************************************************************************************************************************
+changed: [wp-app-2]
+changed: [wp-app-1]
+
+TASK [wordpress : Install mysql cert] **********************************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+TASK [wordpress : Update cert index] ***********************************************************************************************************************************************************
+changed: [wp-app-2]
+changed: [wp-app-1]
+
+TASK [wordpress : Configure WordPress] *********************************************************************************************************************************************************
+changed: [wp-app-1]
+changed: [wp-app-2]
+
+PLAY RECAP *************************************************************************************************************************************************************************************
+wp-app-1                   : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+wp-app-2                   : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+```
+
+> Как видим все работает корректно

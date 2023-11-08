@@ -62,3 +62,95 @@ key=value host variable assignment, got: json
 2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | PLAY [wp_app] ***********************************************************************************************************************************************************************
 2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | skipping: no hosts matched
 2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | PLAY RECAP **************************************************************************************************************************************************************************
+2023-11-08 16:32:27,308 p=41989 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with script plugin: problem running /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py --list
+([Errno 13] Отказано в доступе: '/home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py')
+
+2023-11-08 16:32:27,309 p=41989 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with ini plugin: /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py:22: Expected key=value
+host variable assignment, got: json
+
+2023-11-08 16:32:27,309 p=41989 u=maikltim n=ansible | [WARNING]: Unable to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py as an inventory source
+
+2023-11-08 16:32:27,309 p=41989 u=maikltim n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2023-11-08 16:32:27,312 p=41989 u=maikltim n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2023-11-08 16:32:27,420 p=41989 u=maikltim n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: wp_app
+
+2023-11-08 16:32:27,421 p=41989 u=maikltim n=ansible | PLAY [wp_app] ******************************************************************************************************************************************************************************
+2023-11-08 16:32:27,421 p=41989 u=maikltim n=ansible | skipping: no hosts matched
+2023-11-08 16:32:27,421 p=41989 u=maikltim n=ansible | PLAY RECAP *********************************************************************************************************************************************************************************
+2023-11-08 16:35:21,504 p=42190 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with script plugin: problem running /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py --list
+([Errno 13] Отказано в доступе: '/home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py')
+
+2023-11-08 16:35:21,504 p=42190 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with ini plugin: /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py:22: Expected key=value
+host variable assignment, got: json
+
+2023-11-08 16:35:21,504 p=42190 u=maikltim n=ansible | [WARNING]: Unable to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py as an inventory source
+
+2023-11-08 16:35:21,504 p=42190 u=maikltim n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2023-11-08 16:35:21,507 p=42190 u=maikltim n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2023-11-08 16:35:21,612 p=42190 u=maikltim n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: wp_app
+
+2023-11-08 16:35:21,613 p=42190 u=maikltim n=ansible | PLAY [wp_app] ******************************************************************************************************************************************************************************
+2023-11-08 16:35:21,613 p=42190 u=maikltim n=ansible | skipping: no hosts matched
+2023-11-08 16:35:21,613 p=42190 u=maikltim n=ansible | PLAY RECAP *********************************************************************************************************************************************************************************
+2023-11-08 16:37:00,448 p=42377 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with script plugin: problem running /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py --list
+([Errno 13] Отказано в доступе: '/home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py')
+
+2023-11-08 16:37:00,448 p=42377 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with ini plugin: /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py:22: Expected key=value host
+variable assignment, got: json
+
+2023-11-08 16:37:00,448 p=42377 u=maikltim n=ansible | [WARNING]: Unable to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py as an inventory source
+
+2023-11-08 16:37:00,448 p=42377 u=maikltim n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2023-11-08 16:37:00,451 p=42377 u=maikltim n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2023-11-08 16:37:00,555 p=42377 u=maikltim n=ansible | PLAY [all] *************************************************************************************************************************************************************************************
+2023-11-08 16:37:00,555 p=42377 u=maikltim n=ansible | skipping: no hosts matched
+2023-11-08 16:37:00,555 p=42377 u=maikltim n=ansible | PLAY RECAP *************************************************************************************************************************************************************************************
+2023-11-08 16:40:25,842 p=42691 u=maikltim n=ansible | PLAY [all] *************************************************************************************************************************************************************************************
+2023-11-08 16:40:25,852 p=42691 u=maikltim n=ansible | TASK [Gathering Facts] *************************************************************************************************************************************************************************
+2023-11-08 16:40:32,052 p=42691 u=maikltim n=ansible | ok: [wp-app-2]
+2023-11-08 16:40:32,375 p=42691 u=maikltim n=ansible | ok: [wp-app-1]
+2023-11-08 16:40:32,417 p=42691 u=maikltim n=ansible | TASK [wordpress : Update apt-get repo and cache] ***********************************************************************************************************************************************
+2023-11-08 16:40:36,365 p=42691 u=maikltim n=ansible | ok: [wp-app-1]
+2023-11-08 16:40:36,661 p=42691 u=maikltim n=ansible | ok: [wp-app-2]
+2023-11-08 16:40:36,671 p=42691 u=maikltim n=ansible | TASK [wordpress : install dependencies] ********************************************************************************************************************************************************
+2023-11-08 16:42:27,999 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:42:42,584 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:42:42,590 p=42691 u=maikltim n=ansible | TASK [wordpress : Create the installation directory] *******************************************************************************************************************************************
+2023-11-08 16:42:45,260 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:42:45,264 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:42:45,271 p=42691 u=maikltim n=ansible | TASK [wordpress : Install WordPress] ***********************************************************************************************************************************************************
+2023-11-08 16:42:54,042 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:42:54,469 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:42:54,501 p=42691 u=maikltim n=ansible | TASK [wordpress : Copy file with owner and permissions] ****************************************************************************************************************************************
+2023-11-08 16:43:00,008 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:00,011 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:00,018 p=42691 u=maikltim n=ansible | TASK [wordpress : Enable URL rewriting] ********************************************************************************************************************************************************
+2023-11-08 16:43:02,653 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:02,663 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:02,672 p=42691 u=maikltim n=ansible | TASK [wordpress : Enable the site] *************************************************************************************************************************************************************
+2023-11-08 16:43:05,155 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:05,256 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:05,264 p=42691 u=maikltim n=ansible | TASK [wordpress : Disable the default “It Works” site] *****************************************************************************************************************************************
+2023-11-08 16:43:07,661 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:07,687 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:07,695 p=42691 u=maikltim n=ansible | TASK [wordpress : Reload service apache2] ******************************************************************************************************************************************************
+2023-11-08 16:43:10,629 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:10,631 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:10,637 p=42691 u=maikltim n=ansible | TASK [wordpress : Install mysql cert] **********************************************************************************************************************************************************
+2023-11-08 16:43:15,817 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:15,931 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:15,937 p=42691 u=maikltim n=ansible | TASK [wordpress : Update cert index] ***********************************************************************************************************************************************************
+2023-11-08 16:43:19,642 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:19,929 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:19,958 p=42691 u=maikltim n=ansible | TASK [wordpress : Configure WordPress] *********************************************************************************************************************************************************
+2023-11-08 16:43:25,372 p=42691 u=maikltim n=ansible | changed: [wp-app-1]
+2023-11-08 16:43:25,412 p=42691 u=maikltim n=ansible | changed: [wp-app-2]
+2023-11-08 16:43:25,442 p=42691 u=maikltim n=ansible | PLAY RECAP *************************************************************************************************************************************************************************************
+2023-11-08 16:43:25,442 p=42691 u=maikltim n=ansible | wp-app-1                   : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-11-08 16:43:25,443 p=42691 u=maikltim n=ansible | wp-app-2                   : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
