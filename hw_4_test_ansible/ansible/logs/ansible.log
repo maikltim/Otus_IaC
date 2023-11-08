@@ -1,0 +1,64 @@
+2023-11-08 10:46:46,102 p=14009 u=maikltim n=ansible | PLAY [wp_app] **************************************************************************************************************************************************************
+2023-11-08 10:46:46,113 p=14009 u=maikltim n=ansible | TASK [Gathering Facts] *****************************************************************************************************************************************************
+2023-11-08 10:46:47,159 p=14009 u=maikltim n=ansible | fatal: [app2]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\r\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\r\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\r\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\r\nIt is also possible that a host key has just been changed.\r\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:URVIKZvxBKi9MeCoi7aa9/eR83Ostodd37CFb0HNytc.\r\nPlease contact your system administrator.\r\nAdd correct host key in /home/maikltim/.ssh/known_hosts to get rid of this message.\r\nOffending ECDSA key in /home/maikltim/.ssh/known_hosts:59\r\n  remove with:\r\n  ssh-keygen -f \"/home/maikltim/.ssh/known_hosts\" -R \"158.160.12.126\"\r\nChallenge/response authentication is disabled to avoid man-in-the-middle attacks.\r\nubuntu@158.160.12.126: Permission denied (publickey).", "unreachable": true}
+2023-11-08 10:46:56,148 p=14009 u=maikltim n=ansible | fatal: [app]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 158.160.121.77 port 22: Connection timed out", "unreachable": true}
+2023-11-08 10:46:56,151 p=14009 u=maikltim n=ansible | PLAY RECAP *****************************************************************************************************************************************************************
+2023-11-08 10:46:56,151 p=14009 u=maikltim n=ansible | app                        : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-11-08 10:46:56,152 p=14009 u=maikltim n=ansible | app2                       : ok=0    changed=0    unreachable=1    failed=0    skipped=0    rescued=0    ignored=0   
+2023-11-08 10:50:04,693 p=14405 u=maikltim n=ansible | PLAY [wp_app] ***********************************************************************************************************************************************************************
+2023-11-08 10:50:04,702 p=14405 u=maikltim n=ansible | TASK [Gathering Facts] **************************************************************************************************************************************************************
+2023-11-08 10:50:10,497 p=14405 u=maikltim n=ansible | ok: [app]
+2023-11-08 10:50:11,583 p=14405 u=maikltim n=ansible | ok: [app2]
+2023-11-08 10:50:11,596 p=14405 u=maikltim n=ansible | TASK [wordpress : Update apt-get repo and cache] ************************************************************************************************************************************
+2023-11-08 10:50:14,981 p=14405 u=maikltim n=ansible | ok: [app2]
+2023-11-08 10:50:15,010 p=14405 u=maikltim n=ansible | ok: [app]
+2023-11-08 10:50:15,025 p=14405 u=maikltim n=ansible | TASK [wordpress : install dependencies] *********************************************************************************************************************************************
+2023-11-08 10:51:55,495 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:51:59,840 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:51:59,849 p=14405 u=maikltim n=ansible | TASK [wordpress : Create the installation directory] ********************************************************************************************************************************
+2023-11-08 10:52:02,482 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:52:02,506 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:52:02,521 p=14405 u=maikltim n=ansible | TASK [wordpress : Install WordPress] ************************************************************************************************************************************************
+2023-11-08 10:52:11,371 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:52:11,604 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:52:11,621 p=14405 u=maikltim n=ansible | TASK [wordpress : Copy file with owner and permissions] *****************************************************************************************************************************
+2023-11-08 10:52:17,119 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:52:17,136 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:52:17,160 p=14405 u=maikltim n=ansible | TASK [wordpress : Enable URL rewriting] *********************************************************************************************************************************************
+2023-11-08 10:52:19,744 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:52:19,745 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:52:19,777 p=14405 u=maikltim n=ansible | TASK [wordpress : Enable the site] **************************************************************************************************************************************************
+2023-11-08 10:52:22,282 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:52:28,474 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:52:28,504 p=14405 u=maikltim n=ansible | TASK [wordpress : Disable the default “It Works” site] ******************************************************************************************************************************
+2023-11-08 10:53:22,638 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:53:34,290 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:53:34,315 p=14405 u=maikltim n=ansible | TASK [wordpress : Reload service apache2] *******************************************************************************************************************************************
+2023-11-08 10:53:37,593 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:53:39,345 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:53:39,354 p=14405 u=maikltim n=ansible | TASK [wordpress : Install mysql cert] ***********************************************************************************************************************************************
+2023-11-08 10:53:44,714 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:53:45,421 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:53:45,448 p=14405 u=maikltim n=ansible | TASK [wordpress : Update cert index] ************************************************************************************************************************************************
+2023-11-08 10:53:49,130 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:53:49,409 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:53:49,418 p=14405 u=maikltim n=ansible | TASK [wordpress : Configure WordPress] **********************************************************************************************************************************************
+2023-11-08 10:53:54,804 p=14405 u=maikltim n=ansible | changed: [app]
+2023-11-08 10:53:55,209 p=14405 u=maikltim n=ansible | changed: [app2]
+2023-11-08 10:53:55,273 p=14405 u=maikltim n=ansible | PLAY RECAP **************************************************************************************************************************************************************************
+2023-11-08 10:53:55,273 p=14405 u=maikltim n=ansible | app                        : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-11-08 10:53:55,273 p=14405 u=maikltim n=ansible | app2                       : ok=13   changed=11   unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+2023-11-08 11:24:10,053 p=17764 u=maikltim n=ansible | [WARNING]:  * Failed to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py with ini plugin: /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py:1: Expected
+key=value host variable assignment, got: json
+
+2023-11-08 11:24:10,053 p=17764 u=maikltim n=ansible | [WARNING]: Unable to parse /home/maikltim/otus_iac/hw_4_test_ansible/tfs/tfs2inv.py as an inventory source
+
+2023-11-08 11:24:10,054 p=17764 u=maikltim n=ansible | [WARNING]: No inventory was parsed, only implicit localhost is available
+
+2023-11-08 11:24:10,060 p=17764 u=maikltim n=ansible | [WARNING]: provided hosts list is empty, only localhost is available. Note that the implicit localhost does not match 'all'
+
+2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | [WARNING]: Could not match supplied host pattern, ignoring: wp_app
+
+2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | PLAY [wp_app] ***********************************************************************************************************************************************************************
+2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | skipping: no hosts matched
+2023-11-08 11:24:10,177 p=17764 u=maikltim n=ansible | PLAY RECAP **************************************************************************************************************************************************************************
